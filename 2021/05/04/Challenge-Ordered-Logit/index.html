@@ -1,5 +1,276 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Challenge: Ordered Logit - Chizuru7&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Chizuru7&#039;s Blog"><meta name="msapplication-TileImage" content="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Chizuru7&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="Challenge: Ordered Logit"><meta property="og:url" content="http://example.com/2021/05/04/Challenge-Ordered-Logit/"><meta property="og:site_name" content="Chizuru7&#039;s Blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2021-05-04T06:56:34.000Z"><meta property="article:modified_time" content="2021-05-04T06:58:50.922Z"><meta property="article:author" content="Yu Liu &amp; Junwei Lin"><meta property="article:tag" content="微观计量"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/04/Challenge-Ordered-Logit/"},"headline":"Chizuru7's Blog","image":["http://example.com/img/og_image.png"],"datePublished":"2021-05-04T06:56:34.000Z","dateModified":"2021-05-04T06:58:50.922Z","author":{"@type":"Person","name":"Yu Liu & Junwei Lin"},"description":""}</script><link rel="canonical" href="http://example.com/2021/05/04/Challenge-Ordered-Logit/"><link rel="icon" href="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-04T06:56:34.000Z" title="2021/5/4 下午2:56:34">2021-05-04</time>发表</span><span class="level-item"><time dateTime="2021-05-04T06:58:50.922Z" title="2021/5/4 下午2:58:50">2021-05-04</time>更新</span><span class="level-item"> Yu Liu &amp; Junwei Lin </span><span class="level-item">几秒读完 (大约0个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Challenge: Ordered Logit</h1><div class="content"></div><div class="article-licensing box"><div class="licensing-title"><p>Challenge: Ordered Logit</p><p><a href="http://example.com/2021/05/04/Challenge-Ordered-Logit/">http://example.com/2021/05/04/Challenge-Ordered-Logit/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Yu Liu &amp; Junwei Lin</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-05-04</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-05-04</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/">微观计量</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/03/31/Report-Regression-Spline/"><span class="level-item">Report - Regression Splines</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://i.loli.net/2021/04/01/s3S5IyEexAjClVm.png" alt="Chizuru7"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Chizuru7</p><p class="is-size-6 is-block">A Senior in XMU</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Earth, Solar System</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">1</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Mail" href="mailto:362296573@qq.com"><i class="fas fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Steam" href="https://s.team/p/cfhj-vnmw/QDPBQJDG"><i class="fab fa-steam"></i></a></div></div></div><!--!--><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-04T06:56:34.000Z">2021-05-04</time></p><p class="title"><a href="/2021/05/04/Challenge-Ordered-Logit/">Challenge: Ordered Logit</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/31/Report-Regression-Spline/"><img src="/gallery/amiya_Splines.png" alt="Report - Regression Splines"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-31T09:38:41.000Z">2021-03-31</time></p><p class="title"><a href="/2021/03/31/Report-Regression-Spline/">Report - Regression Splines</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/29/VC%20Dimension/"><img src="/gallery/VCcover.jpg" alt="Report - VC Dimension"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-28T16:00:00.000Z">2021-03-29</time></p><p class="title"><a href="/2021/03/29/VC%20Dimension/">Report - VC Dimension</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-20T16:00:00.000Z">2021-03-21</time></p><p class="title"><a href="/2021/03/21/Data%20Analysis%20for%20Econ%20Intro/">Data Analysis for Economics Intro</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/"><span class="tag">微观计量</span><span class="tag">4</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 Yu Liu & Junwei Lin</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Challenge: Ordered Logit - Chizuru7&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Chizuru7&#039;s Blog"><meta name="msapplication-TileImage" content="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Chizuru7&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Ordered Logit is in the family of ordinal regression. It’s widely used when facing ordered categorical outcomes. For example, in bond ratings, there are $AAA, AA, A, B$ etc. Of course, we can simply a"><meta property="og:type" content="blog"><meta property="og:title" content="Challenge: Ordered Logit"><meta property="og:url" content="http://example.com/2021/05/04/Challenge-Ordered-Logit/"><meta property="og:site_name" content="Chizuru7&#039;s Blog"><meta property="og:description" content="Ordered Logit is in the family of ordinal regression. It’s widely used when facing ordered categorical outcomes. For example, in bond ratings, there are $AAA, AA, A, B$ etc. Of course, we can simply a"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/gallery/Ordered_Logit.png"><meta property="article:published_time" content="2021-05-04T06:56:34.000Z"><meta property="article:modified_time" content="2021-05-09T11:11:28.917Z"><meta property="article:author" content="Yu Liu &amp; Junwei Lin"><meta property="article:tag" content="微观计量"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/gallery/Ordered_Logit.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/05/04/Challenge-Ordered-Logit/"},"headline":"Chizuru7's Blog","image":["http://example.com/gallery/Ordered_Logit.png"],"datePublished":"2021-05-04T06:56:34.000Z","dateModified":"2021-05-09T11:11:28.917Z","author":{"@type":"Person","name":"Yu Liu & Junwei Lin"},"description":"Ordered Logit is in the family of ordinal regression. It’s widely used when facing ordered categorical outcomes. For example, in bond ratings, there are $AAA, AA, A, B$ etc. Of course, we can simply a"}</script><link rel="canonical" href="http://example.com/2021/05/04/Challenge-Ordered-Logit/"><link rel="icon" href="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/gallery/Ordered_Logit.png" alt="Challenge: Ordered Logit"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-04T06:56:34.000Z" title="2021/5/4 下午2:56:34">2021-05-04</time>发表</span><span class="level-item"><time dateTime="2021-05-09T11:11:28.917Z" title="2021/5/9 下午7:11:28">2021-05-09</time>更新</span><span class="level-item"> Yu Liu &amp; Junwei Lin </span><span class="level-item">15 分钟读完 (大约2184个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Challenge: Ordered Logit</h1><div class="content"><p><strong>Ordered Logit</strong> is in the family of <strong>ordinal regression</strong>. It’s widely used when facing <strong>ordered categorical outcomes</strong>. For example, in bond ratings, there are $AAA, AA, A, B$ etc. Of course, we can simply apply multinomial logistics model to fit it. However, we may lose the information of the ranking in the dependent variables. As a result, ordered logit (or ordered probit) is the ‘evolution’ version.</p>
+<span id="more"></span>
+<h2 id="Mechanism-of-Ordered-Logit"><a href="#Mechanism-of-Ordered-Logit" class="headerlink" title="Mechanism of Ordered Logit"></a>Mechanism of Ordered Logit</h2><h3 id="Reminder-of-Multinomial-Logistics"><a href="#Reminder-of-Multinomial-Logistics" class="headerlink" title="Reminder of Multinomial Logistics"></a>Reminder of Multinomial Logistics</h3><p>If we consider the <strong>binary logit model</strong>, the function should be,</p>
+<script type="math/tex; mode=display">
+Pr(y=1|x) = \frac{\exp(x'\beta)}{1+\exp(x'\beta)}</script><p>, which implies that,</p>
+<script type="math/tex; mode=display">
+\ln \frac{Pr(y=1|x)}{Pr(y=0|x)} = x'\beta</script><p><span id='multi-logit-thinking'></span>Expanding the kind of thoughts to the multinomial part, there is the <strong>soft-max function</strong> for <strong>n</strong> choices,</p>
+<script type="math/tex; mode=display">
+\sigma_j(x'\beta_j) = \frac{\exp(x'\beta_j)}{\sum_{i=1}^n\exp(x'\beta_i)}</script><p>The core thinking is that we can <strong>pick any two categories to do a binary logistic regression</strong>. Even if each pair has different underlying classification criteria (which generates different $\beta$), we can still merge these regressions together to form the soft-max function. Therefore, the fraction of probabilities is, </p>
+<script type="math/tex; mode=display">
+\ln \frac{Pr(y=j|x)}{Pr(y=k|x)} = x'(\beta_j-\beta_k)</script><p>And we use the <strong>MLE</strong> (Maximum Likelihood Estimation) method to estimate it. </p>
+<h3 id="Parallel-Regression-Assumption"><a href="#Parallel-Regression-Assumption" class="headerlink" title="Parallel Regression Assumption"></a>Parallel Regression Assumption</h3><p>Nevertheless, if ordered logit is desired, then we cannot belike soft-max function to have many different $\beta$-s. Simply speaking, the dependent variables of ordinal regression always contain the <strong>rank information</strong>. Rank always implies comparisons. For example, is it reasonable or fair for a bond credit rating firm to have different grading criteria onto the very bond that is not evaluated yet? The answer is certainly no. We call the assumption as <strong>Parallel Assumption</strong> or <strong>Proportional Odds Assumption</strong>.</p>
+<h4 id="Tests"><a href="#Tests" class="headerlink" title="Tests"></a>Tests</h4><p><span id='assumption-test'></span>It is a <strong>strong</strong> assumption so that we unify the coefficients among categories. Practically, we have many methods to test whether the dataset can pass the assumption. <strong>Brant test</strong>, <strong>Wald test</strong> and <strong>LR test</strong> are the most  popular ways to verify it.  If <strong>not all</strong> variables pass the examinations, then a <strong>significant result</strong> will be thrown out. Generally, Wald test is <strong>looser</strong> than Brant test. Here, Wald test will be introduced briefly. </p>
+<blockquote><p>Wald test is a kind of likelihood ratio test but lowers much more computation burdens than that within LR.</p>
+<footer><strong>WikiPedia</strong><cite><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Wald_test">en.wikipedia.org/wiki/Wald_test</a></cite></footer></blockquote>
+<p>Wald test performs one-by-one in finding the bad variables in ordered logit model within Stata.</p>
+<script type="math/tex; mode=display">
+H_0: \hat{\beta} = \beta_0\\
+H_1: \hat{\beta} \ne \beta_0\\
+W = \frac{(\hat{\beta}-\beta_0)^2}{Var(\hat{\beta})}\to \chi^2</script><p>, where $\hat{\beta}$ was found as the maximizing argument of the unconstrained likelihood function and it is compared with a hypothesized one $\beta_0$. We hope that null hypothesis passes so an insignificant p-value is desired.</p>
+<p><span id='gologit-start'></span>Details of both tests can tell what variables violate the assumption. It’s also called <strong>Partial Proportional Odds</strong> and we will talk about the situation later.</p>
+<h3 id="Distinguish-Categories"><a href="#Distinguish-Categories" class="headerlink" title="Distinguish Categories"></a>Distinguish Categories</h3><h4 id="Thresholds"><a href="#Thresholds" class="headerlink" title="Thresholds"></a>Thresholds</h4><p><span id='idea'></span>You must have questions about <strong>how to distinguish</strong> categories under the circumstance of $\beta$-s being the same. Notice that it indicates that every category <strong>shares the same Logit function</strong>. And a idea comes out. One variable increases, it would result in a shift toward either end of the spectrum of ordinal responses. Said another way, the <strong>probability</strong> of responding toward either end of the spectrum would increase as the predictor variables <strong>change in a given direction</strong>. </p>
+<p>Therefore, we assume some <strong>thresholds $\alpha$ aiming at dividing the rank for categories</strong>. For example, if an index model for a single latent variable $y_i^*=x_i’\beta+u_i$ and $u_i$ follows the Gumbel, then,</p>
+<script type="math/tex; mode=display">
+y_i = j \hspace{1em} \text{if} \hspace{1em} \alpha_{j-1}\le y_i^*\le \alpha_j</script><p>Suppose it is a health survey with three ($J$) levels, then there should be two ($J-1$) intercepts. What should be kept in mind is that we don’t know the thresholds beforehand and <strong>thresholds are unlikely to be averagely divided</strong>. A good example is that good health might have little differences with normal health, but normal health can be much better than unhealthy. </p>
+<div align=center>
+<img src='https://i.loli.net/2021/05/05/cw3R2Opr7vo9JCj.png' style='zoom:75%' alt='Fig1: Thresholds'>
+</div>
+
+<p>Thus, the probability of individual $i$ choosing $j$ (just like the normal health case in the graph) is,</p>
+<script type="math/tex; mode=display">
+Pr(y_i=j) = Pr(\alpha_{j-1}-x_i'\beta\le u_i\le \alpha_j-x'_i\beta) = F(\alpha_j-x'_i\beta)-F(\alpha_{j-1}-x_i'\beta)</script><p> , where $F = \frac{\exp(z)}{1+\exp(z)}$, for $u_i$ follows standard $\text{Gumbel}$ distribution. (Of course, if $u_i$ is distributed under the standard normal, then the $F$ can be the $cdf$ of it. And that is the ordered probit.) Particularly, $Pr(y_i=1)=F(\alpha_1-x’\beta)$ and $Pr(y_i=J) = 1-F(\alpha_{J-1}-x’\beta)$.</p>
+<p>And the fraction of probability is,</p>
+<script type="math/tex; mode=display">
+\ln \frac{Pr(y_i=j|x_i)}{Pr(y_i=k|x_i)} = \alpha_j-\alpha_{j-1} - (\alpha_k - \alpha_{k-1})</script><p>As you can see that the equation is <strong>$\beta$-free</strong> because it satisfies the parallel assumption.</p>
+<h4 id="Estimation"><a href="#Estimation" class="headerlink" title="Estimation"></a>Estimation</h4><p>Once we have the probability function, we can estimate it by <strong>MLE</strong>.</p>
+<p>The log-likelihood function is, </p>
+<script type="math/tex; mode=display">
+\ln \mathcal{L}(\beta, \vec{\alpha}|x_i,y_i) = \sum_{j=1}^J [y_i=j]\ln [F(\alpha_{j-1}-x'\beta)-F(\alpha_j-x'\beta)]</script><p>, where $[y_i=j]$ is an Iverson bracket. If we continue using <a href="#multi-logit-thinking">the core thinking</a> in the multinomial logistics here, we can <strong>separate each $\alpha$ independently</strong> and the binary (smaller than $j$ or larger than $j$ are the two groups) logistics function is easy to get,</p>
+<script type="math/tex; mode=display">
+\ln\frac{Pr(y_i\le j)}{1-Pr(y_i\le j)} = \alpha_j -x'\beta\\
+\Rightarrow Pr(y_i\le j) = \frac{\exp(\alpha_j-x'\beta)}{1+\exp(\alpha_j-x'\beta)}</script><p>And here, we can operate it as if we were doing a binary logistics regression but for many times.</p>
+<h3 id="Interpretation"><a href="#Interpretation" class="headerlink" title="Interpretation"></a>Interpretation</h3><h4 id="Coefficients"><a href="#Coefficients" class="headerlink" title="Coefficients"></a>Coefficients</h4><p>One way to interpret the coefficients is <strong>via a proportional odds ratio</strong>. Say, you can interpret it mainly on the latent variable then interpret it in the exponential way. For example, one ordered logit regression outcome is,</p>
+<script type="math/tex; mode=display">
+\ln (\frac{Pr(y_i\le j)}{1-Pr(y_i\le j)}) = \alpha_j + 0.2*\text{Gender}</script><p>, where $\text{Gender}=\begin{cases}1, \text{if Male}\ 0, \text{if Female} \end{cases}$. The odds ratio for gender is $\exp(-\beta)=\exp(0.2)=1.22$. Say, the latent variable will increase $0.2$ so will the likelihood of a higher rank. Then the odds of rating for a man is 1.22 times <strong>higher</strong> than that for a woman.</p>
+<h4 id="Marginal-Effects"><a href="#Marginal-Effects" class="headerlink" title="Marginal Effects"></a>Marginal Effects</h4><p>An advantage of the ordered logit regression is that we can estimate the marginal effect of each regressor on the probability that individual $i$ chooses alternative $j$ ($p_{ij}$),</p>
+<script type="math/tex; mode=display">
+\frac{\partial p_{ij}}{\partial x_r} = \beta_r[f(\alpha_{j-1}-x'\beta)-f(\alpha_j-x'\beta)]=\beta_r\Delta f</script><p>, where $f$ is the $pdf$ of logit function and $x_r$ is the $r^{th}$ regressor. And the marginal effects across all alternatives for individual $i$ sums up to zero. This interesting property inherits from logit-like functions (like logit function and soft-max function).</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{j=1}^J \frac{\partial p_{ij}}{\partial x_r} &= \beta_r [f(\alpha_1-x'\beta)+f(\alpha_2-x'\beta)-f(\alpha_1-x'\beta)+\cdots\\
+&+f(\alpha_{J-1}-x'\beta)-f(\alpha_{J-2}-x'\beta)-f(\alpha_{J-1}-x'\beta)]\\
+&=\beta_r*0=0
+\end{aligned}</script><p>The interpretation of marginal effect is that each unit increase in independent variable increase/decrease the probability of selecting alternative $j$ by the amount <strong>expressed as a percent</strong> (for probability is percentage).</p>
+<div align=center>
+<img src='https://i.loli.net/2021/05/06/IWUTRvnFw2l7SXq.png' style='zoom:75%' alt='Fig2: Marginal Effects'>
+</div>
+
+
+<p>We can see from the graph that $\Delta f$ is actually the <strong>difference of boundary</strong>, if selecting ‘Normal Health’.</p>
+<h2 id="Generalized-Ordered-Logit"><a href="#Generalized-Ordered-Logit" class="headerlink" title="Generalized Ordered Logit"></a>Generalized Ordered Logit</h2><p>Remember that we remained a problem called <a href="#gologit-start">Parital Proprtional Odds</a>? And we’d like to talk about it now. If some $\beta$-s differ across different categories, what should we do? Here comes the <strong>Generalized Ordered Logit</strong>, which <strong>looses the strong parallel assumption</strong> while somehow <strong>remaining the rank information</strong> in regression formula.</p>
+<p>In <a href="#assumption-test">Parallel Assumption</a>, we talked about some test like Brant test, Wald test and you can immediately find the variables that violate the assumption. Then, we can reconstruct our formula based on ordered logit model,</p>
+<script type="math/tex; mode=display">
+\ln\frac{Pr(y_i\le j)}{1-Pr(y_i\le j)} = \alpha_j - x'_{\text{not},i}\beta_{\text{not}} - x'_{\text{vio},i}\beta_{\text{vio},j}\\
+\Rightarrow Pr(y_i\le j) = \frac{\exp(\alpha_j - x'_{\text{not},i}\beta_{\text{not}} - x'_{\text{vio},i}\beta_{\text{vio},j})}{1 + \exp(\alpha_j - x'_{\text{not},i}\beta_{\text{not}} - x'_{\text{vio},i}\beta_{\text{vio},j})}</script><p>, where the undermark $\text{not}$ represents not violate. The $\alpha$-s here inherits from <a href="#idea">the idea</a>. It is still the threshold to represent the ranks of categories even if every binary logistics doesn’t share the same $pdf$. What’s more, the estimation or interpretations are still the same. We can say that ordered logit is a particular of generalized ordered logit.</p>
+<p><span id='note!'></span><strong>NOTE!</strong> In some software packages, Stata as the example, if you use the command <code>gologit</code> to do a generalized ordered logit, there will be a totally different result with <code>ologit</code> even if no $\beta$ varies. This is because <code>gologit</code> is a user-written package, and the model is,</p>
+<script type="math/tex; mode=display">
+\ln\frac{Pr(y_i>j)}{1-Pr(y_i>j)} = \alpha_j + x'_{\text{not},i}\beta_{\text{not}} + x'_{\text{vio},i}\beta_{\text{vio},j}</script><p>, where the <strong>greater-than sign</strong> matters and change all the results. So plz be very careful!</p>
+<h2 id="Empirical-Example"><a href="#Empirical-Example" class="headerlink" title="Empirical Example"></a>Empirical Example</h2><h3 id="About-the-Dataset"><a href="#About-the-Dataset" class="headerlink" title="About the Dataset"></a>About the Dataset</h3><p>Long and Freese (2006) present data from the 1977/1989 General Social Survey. Respondents are asked to evaluate the following statement: “A working mother can establish just as warm and secure a relationship with her child as a mother who does not work.” Responses were coded as <strong>1</strong> = Strongly Disagree (1SD), <strong>2</strong> = Disagree (2D), <strong>3</strong> = Agree (3A), and <strong>4</strong> = Strongly Agree (4SA). <strong>Practically, the number should impart the rank information.</strong></p>
+<p>Explanatory variables are <strong>yr89</strong> (survey year; 0 = 1977, 1 = 1989), <strong>male</strong> (0 = female, 1 = male), <strong>white</strong> (0 = nonwhite, 1 = white), <strong>age </strong>(measured in years), <strong>ed</strong> (years of education), and <strong>prst</strong> (occupational prestige scale). In this example, we will use <strong>3A</strong> as <strong>the base outcome</strong>.</p>
+<h3 id="Assumption-Test"><a href="#Assumption-Test" class="headerlink" title="Assumption Test"></a>Assumption Test</h3><p>As we mentioned in <a href="#assumption-test">tests</a>, there are many can figure out whether the dataset satisfies the parallel assumption.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oparallel</span><br></pre></td></tr></table></figure>
+<p>And the result is shown below,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Test Method</th>
+<th>Chi2</th>
+<th>df</th>
+<th>P&gt;Chi2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wolfe Gould</td>
+<td>48.91</td>
+<td>12</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Brant</td>
+<td>49.18</td>
+<td>12</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>score</td>
+<td>48.42</td>
+<td>12</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>likelihood ratio</td>
+<td>49.2</td>
+<td>12</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Wald</td>
+<td>48.55</td>
+<td>12</td>
+<td>0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the reason why the degree of freedom is 12, it is because we have 6 variables and each of them provides a $\chi^2$. A significant test statistic provides evidence that the parallel regression assumption has been violated.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto lrf store(gologit2)</span><br></pre></td></tr></table></figure>
+<p>It’s an optional command following after the <code>gologit2</code> regression and we show it here in advance. In the detail, you will find that only <strong>yr89, male</strong> violate the assumption.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">variables</th>
+<th style="text-align:left">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">white</td>
+<td style="text-align:left">0.7136</td>
+</tr>
+<tr>
+<td style="text-align:left">ed</td>
+<td style="text-align:left">0.1589</td>
+</tr>
+<tr>
+<td style="text-align:left">prst</td>
+<td style="text-align:left">0.2046</td>
+</tr>
+<tr>
+<td style="text-align:left">age</td>
+<td style="text-align:left">0.0743</td>
+</tr>
+<tr>
+<td style="text-align:left">yr89</td>
+<td style="text-align:left">0.00093</td>
+</tr>
+<tr>
+<td style="text-align:left">male</td>
+<td style="text-align:left">0.00002</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Ordered-Logit"><a href="#Ordered-Logit" class="headerlink" title="Ordered Logit"></a>Ordered Logit</h3><p>However, in order to perform the ordered logit, we kick those two bad variables out.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ologit</span> warm white age <span class="keyword">ed</span> prst</span><br></pre></td></tr></table></figure>
+<p>Here is the result,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Coef.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>white</td>
+<td>-.4478496<em>*</em></td>
+</tr>
+<tr>
+<td>age</td>
+<td>-.0186559<em>*</em></td>
+</tr>
+<tr>
+<td>ed</td>
+<td>.078407<em>*</em></td>
+</tr>
+<tr>
+<td>prst</td>
+<td>.0053391</td>
+</tr>
+<tr>
+<td>/cut1</td>
+<td>-2.056959</td>
+</tr>
+<tr>
+<td>/cut2</td>
+<td>-.2866278</td>
+</tr>
+<tr>
+<td>/cut3</td>
+<td>1.525569</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Generalized-Ordered-Logit-1"><a href="#Generalized-Ordered-Logit-1" class="headerlink" title="Generalized Ordered Logit"></a>Generalized Ordered Logit</h3><p>If we’d like to take all variables into account, we should use the generalized ordered logit since it doesn’t require a $\beta$ that across all categories. And before we operate it in Stata, we must consider the true model that <code>gologit</code> give, which we talked at <a href="#note!">the note</a>. </p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gologit2 warm yr89 male white age <span class="keyword">ed</span> prst, auto lrf store(gologit2)</span><br></pre></td></tr></table></figure>
+<p>Note that <code>gologit2</code> is used when some but not all variables are parallel in $\beta$. And the result is,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>1SD</th>
+<th>2D</th>
+<th>3A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yr89</td>
+<td>0.984<em>*</em></td>
+<td>0.534<em>*</em></td>
+<td>0.326<em>*</em></td>
+</tr>
+<tr>
+<td>male</td>
+<td>-0.333<em>*</em></td>
+<td>-0.693<em>*</em></td>
+<td>-1.098<em>*</em></td>
+</tr>
+<tr>
+<td>white</td>
+<td>-0.383<em>*</em></td>
+<td>-0.383<em>*</em></td>
+<td>-0.383<em>*</em></td>
+</tr>
+<tr>
+<td>age</td>
+<td>-0.022<em>*</em></td>
+<td>-0.022<em>*</em></td>
+<td>-0.022<em>*</em></td>
+</tr>
+<tr>
+<td>ed</td>
+<td>0.067<em>*</em></td>
+<td>0.067<em>*</em></td>
+<td>0.067<em>*</em></td>
+</tr>
+<tr>
+<td>prst</td>
+<td>0.006*</td>
+<td>0.006*</td>
+<td>0.006*</td>
+</tr>
+<tr>
+<td>_cons</td>
+<td>2.122<em>*</em></td>
+<td>0.602<em>*</em></td>
+<td>-1.048<em>*</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The model parameterization dictates the interpretation of the odds ratio. Take the odds ratio for gender as example, using Stat’s estimates, the odds ratio for gender is $exp(-\beta_{male})$, which is 0.7168, 0.5, 0.3353 when calculating $P(Y&gt;1)$, $P(Y&gt;2)$, $P(Y&gt;3)$. The impact of gender shows heterogeneity. The odds of rating score higher than 1, 2, 3 is respectively 0.7168, 0.5, 0.3353  times lower for man than it is for women.</p>
+<p>We calculate the accuracy and find it is $43.26\%$.</p>
+<h3 id="Comparison-to-Multinomial-Logistics"><a href="#Comparison-to-Multinomial-Logistics" class="headerlink" title="Comparison to Multinomial Logistics"></a>Comparison to Multinomial Logistics</h3><p>We also implement a multinomial logistics regression on the dataset for you to show the difference.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mlogit</span> warm yr89 male white age <span class="keyword">ed</span> prst</span><br></pre></td></tr></table></figure>
+<p>The accuracy here is $42.4\%$, which is lower than the generalized ordered logit. Thus, generalized ordered logit is more efficient when facing a category with rank.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><h3 id="List-of-Works"><a href="#List-of-Works" class="headerlink" title="List of Works"></a>List of Works</h3><ol>
+<li>Richard Williams, <a target="_blank" rel="noopener" href="https://www3.nd.edu/~rwilliam/gologit2/">Generalized Ordered Logit Models</a></li>
+<li>Agresti, Alan. “Categorical Data Analysis.” New York: Wiley, 2002.</li>
+<li>Jiaming Mao, <a target="_blank" rel="noopener" href="https://github.com/jiamingmao/data-analysis">Data Analysis for Economics</a></li>
+<li><a target="_blank" rel="noopener" href="http://cscu.cornell.edu/news/statnews/91_ordlogistic.pdf">Cornell Consulting Unit #91</a></li>
+<li>Econometrics Academy, <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=FUmTji5qRJM">Ordered Logit and Ordered Probit</a></li>
+</ol>
+<h3 id="Picture-References"><a href="#Picture-References" class="headerlink" title="Picture References"></a>Picture References</h3><p><a class="tag is-dark is-medium" href="https://www.pixiv.net/artworks/88670397" target="_blank"><br><span class="icon"><i class="fas fa-camera"></i></span>&nbsp;&nbsp; Pixiv by Alcxome </a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Challenge: Ordered Logit</p><p><a href="http://example.com/2021/05/04/Challenge-Ordered-Logit/">http://example.com/2021/05/04/Challenge-Ordered-Logit/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Yu Liu &amp; Junwei Lin</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-05-04</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-05-09</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/">微观计量</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/05/07/Report-Ridge-Lasso/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Insight Ridge and Lasso</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/03/31/Report-Regression-Spline/"><span class="level-item">Report - Regression Splines</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://i.loli.net/2021/04/01/s3S5IyEexAjClVm.png" alt="Chizuru7"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Chizuru7</p><p class="is-size-6 is-block">A Senior in XMU</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Earth, Solar System</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">1</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Mail" href="mailto:362296573@qq.com"><i class="fas fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Steam" href="https://s.team/p/cfhj-vnmw/QDPBQJDG"><i class="fab fa-steam"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Mechanism-of-Ordered-Logit"><span class="level-left"><span class="level-item">1</span><span class="level-item">Mechanism of Ordered Logit</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Reminder-of-Multinomial-Logistics"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Reminder of Multinomial Logistics</span></span></a></li><li><a class="level is-mobile" href="#Parallel-Regression-Assumption"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">Parallel Regression Assumption</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Tests"><span class="level-left"><span class="level-item">1.2.1</span><span class="level-item">Tests</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Distinguish-Categories"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">Distinguish Categories</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Thresholds"><span class="level-left"><span class="level-item">1.3.1</span><span class="level-item">Thresholds</span></span></a></li><li><a class="level is-mobile" href="#Estimation"><span class="level-left"><span class="level-item">1.3.2</span><span class="level-item">Estimation</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Interpretation"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">Interpretation</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Coefficients"><span class="level-left"><span class="level-item">1.4.1</span><span class="level-item">Coefficients</span></span></a></li><li><a class="level is-mobile" href="#Marginal-Effects"><span class="level-left"><span class="level-item">1.4.2</span><span class="level-item">Marginal Effects</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#Generalized-Ordered-Logit"><span class="level-left"><span class="level-item">2</span><span class="level-item">Generalized Ordered Logit</span></span></a></li><li><a class="level is-mobile" href="#Empirical-Example"><span class="level-left"><span class="level-item">3</span><span class="level-item">Empirical Example</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#About-the-Dataset"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">About the Dataset</span></span></a></li><li><a class="level is-mobile" href="#Assumption-Test"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">Assumption Test</span></span></a></li><li><a class="level is-mobile" href="#Ordered-Logit"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">Ordered Logit</span></span></a></li><li><a class="level is-mobile" href="#Generalized-Ordered-Logit-1"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">Generalized Ordered Logit</span></span></a></li><li><a class="level is-mobile" href="#Comparison-to-Multinomial-Logistics"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">Comparison to Multinomial Logistics</span></span></a></li></ul></li><li><a class="level is-mobile" href="#References"><span class="level-left"><span class="level-item">4</span><span class="level-item">References</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#List-of-Works"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">List of Works</span></span></a></li><li><a class="level is-mobile" href="#Picture-References"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">Picture References</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-05-07T11:06:03.000Z">2021-05-07</time></p><p class="title"><a href="/2021/05/07/Report-Ridge-Lasso/">Insight Ridge and Lasso</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/05/04/Challenge-Ordered-Logit/"><img src="/gallery/Ordered_Logit.png" alt="Challenge: Ordered Logit"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-05-04T06:56:34.000Z">2021-05-04</time></p><p class="title"><a href="/2021/05/04/Challenge-Ordered-Logit/">Challenge: Ordered Logit</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/31/Report-Regression-Spline/"><img src="/gallery/amiya_Splines.png" alt="Report - Regression Splines"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-31T09:38:41.000Z">2021-03-31</time></p><p class="title"><a href="/2021/03/31/Report-Regression-Spline/">Report - Regression Splines</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/29/VC%20Dimension/"><img src="/gallery/VCcover.jpg" alt="Report - VC Dimension"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-28T16:00:00.000Z">2021-03-29</time></p><p class="title"><a href="/2021/03/29/VC%20Dimension/">Report - VC Dimension</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-20T16:00:00.000Z">2021-03-21</time></p><p class="title"><a href="/2021/03/21/Data%20Analysis%20for%20Econ%20Intro/">Data Analysis for Economics Intro</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/"><span class="tag">微观计量</span><span class="tag">5</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 Yu Liu & Junwei Lin</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
