@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Casual Effect Estimation - Chizuru7&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Chizuru7&#039;s Blog"><meta name="msapplication-TileImage" content="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Chizuru7&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Causal effect is different from associative relationship. In reality, we are usually interested in how an action matters. For example, it is obvious that a high advertisement payment appeals to consum"><meta property="og:type" content="blog"><meta property="og:title" content="Casual Effect Estimation"><meta property="og:url" content="http://example.com/2021/06/18/Casual-Regression/"><meta property="og:site_name" content="Chizuru7&#039;s Blog"><meta property="og:description" content="Causal effect is different from associative relationship. In reality, we are usually interested in how an action matters. For example, it is obvious that a high advertisement payment appeals to consum"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/gallery/causal_effect.png"><meta property="article:published_time" content="2021-06-18T08:21:05.000Z"><meta property="article:modified_time" content="2021-06-23T11:19:36.802Z"><meta property="article:author" content="Junwei Lin"><meta property="article:tag" content="微观计量"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/gallery/causal_effect.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/06/18/Casual-Regression/"},"headline":"Chizuru7's Blog","image":["http://example.com/gallery/causal_effect.png"],"datePublished":"2021-06-18T08:21:05.000Z","dateModified":"2021-06-23T11:19:36.802Z","author":{"@type":"Person","name":"Junwei Lin"},"description":"Causal effect is different from associative relationship. In reality, we are usually interested in how an action matters. For example, it is obvious that a high advertisement payment appeals to consum"}</script><link rel="canonical" href="http://example.com/2021/06/18/Casual-Regression/"><link rel="icon" href="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/gallery/causal_effect.png" alt="Casual Effect Estimation"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-06-18T08:21:05.000Z" title="2021/6/18 下午4:21:05">2021-06-18</time>发表</span><span class="level-item"><time dateTime="2021-06-23T11:19:36.802Z" title="2021/6/23 下午7:19:36">2021-06-23</time>更新</span><span class="level-item"> Junwei Lin </span></div></div><h1 class="title is-3 is-size-4-mobile">Casual Effect Estimation</h1><div class="content"><p><strong>Causal effect</strong> is different from <strong>associative relationship</strong>. In reality, we are usually interested in how an action matters. For example, it is obvious that a high advertisement payment appeals to consumers, which is <strong>associative relationship</strong>. However, how to allocate your advertisement money, like focusing on young people, will get the best effect? It requires the <strong>causal effect</strong>.</p>
+<blockquote>
+<p><em>Shallow men believe in luck or in circumstance. Strong men believe in cause and effect.</em> </p>
+<p><em>― Ralph Waldo Emerson</em></p>
+</blockquote>
+<span id="more"></span>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><h3 id="Structural-Causal-Model"><a href="#Structural-Causal-Model" class="headerlink" title="Structural Causal Model"></a>Structural Causal Model</h3><p>Like statistical learning, we’d better use a concise “language” to tell the causal effect. And here is the <strong>structural causal model</strong> (SCM). A SCM can always be drawn within a <strong>Directed Acyclic Graph</strong> (DAG). One reason is that the relationship doesn’t have feedback effect, with which SCM and DAG are consistent.</p>
+ <div align=center>
+    <img src = 'https://i.loli.net/2021/06/18/A1GnSlwX7qVajgo.png' alt='Fig1: A Simple SCM'>
+</div>
+
+<p>In Fig1, it shows a simple causal relationship that $X$ affects $Y$, and $X$ is the cause. The causal effect can be written as,</p>
+<script type="math/tex; mode=display">
+Y \leftarrow f_X(X)</script><p>In general, $X$ is the treatment binary variable to be 0 or 1. Therefore, the causal effect is,</p>
+<script type="math/tex; mode=display">
+\tau = Y_{X=1}-Y_{X=0} \tag{1}</script><h3 id="Counterfactual"><a href="#Counterfactual" class="headerlink" title="Counterfactual"></a>Counterfactual</h3><p>Here is a representative question that “how much would I earn if I went to the university?”. For an individual, he can only choose one option <strong>without</strong> foreseeing the future situation. Say, our minds cannot jump to the other parallel universe like Doctor Strange to observe his salary. Thus, we call it as <strong>counterfactual</strong>.</p>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/18/HKEVob7TFAx8CSQ.png'  alt='Fig2: Counterfactual'>
+</div>
+
+<p>It leads a severe problem that we cannot estimate the treatment effect (causal effect) for one specific individual because the equation 1 requires we to analyze some variations in different worlds.</p>
+<h3 id="Potential-Outcomes-Model"><a href="#Potential-Outcomes-Model" class="headerlink" title="Potential Outcomes Model"></a>Potential Outcomes Model</h3><p><strong>Potential Outcomes Model</strong> combines the treatment, potential outcomes, observable outcome and treatment effect into one equation, which is, </p>
+<script type="math/tex; mode=display">
+Y_i = X_iY_i^1+(1-X_i)Y_i^0 \tag{2}</script><p> ,where $X_i$ is the treatment. $Y_i^1$ denotes the outcome after treatment while $Y_i^0$ doesn’t. Therefore, $Y_i$ is the final outcome observed. That is, if a treatment is taken, we will get $Y_i=Y_i^1$.</p>
+<h3 id="Confounding-Variables"><a href="#Confounding-Variables" class="headerlink" title="Confounding Variables"></a>Confounding Variables</h3><p>Some variables may affect treatment and outcomes simultaneously. One DAG is,</p>
+<div align=center>
+    <span id='confounding'> </span>
+    <img src='https://i.loli.net/2021/06/19/kVYE9cmPfHUjqyK.png' alt='Fig3: Confounding Variables'>
+</div>
+
+
+<p>We call $Z$ blocks every path $X\to Y$. So variable $Z$ makes variable $X$ and $Y$ <strong>dependent</strong>. $X$ denotes “going to university”, $Y$ is salary and $Z$ is gender. Thus, we cannot observe the true treatment effect ($X\to Y$) by only observing $X$, $Y$. This kind of variables called <strong>confounding variables.</strong></p>
+<h2 id="Average-Treatment-Effect"><a href="#Average-Treatment-Effect" class="headerlink" title="Average Treatment Effect"></a>Average Treatment Effect</h2><ul>
+<li>No Confounding Variables here.</li>
+</ul>
+<p>We’d like to change our mind to estimate the <strong>average treatment effect </strong>(ATE).</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\tau = ATE &= E(Y_i^1-Y_i^0)\\
+&= E(Y_i^1-Y_i^0|X_i=1)*p(X_i=1)+E(Y_i^1-Y_i^0|X_i=0)*p(X_i=0)
+\end{aligned}\tag{3}</script><p>Suppose the sample here is created by the God, and individuals are homogeneous.<span id='sample'> </span></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">$Y_i^1$</th>
+<th style="text-align:center">$Y_i^0$</th>
+<th style="text-align:center">Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The ATE is,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\tau = ATE &= E(Y_i^1-Y_i^0|X_i=1)*p(X_i=1)+E(Y_i^1-Y_i^0|X_i=0)*p(X_i=0)\\
+&= \frac{(1-0)+(1-0)+(1-1)+(0-0)}{4}*\frac{1}{2} + \frac{(1-1)+(1-0)+(1-0)+(0-0)}{4}*\frac{1}{2}\\
+&= \frac{1}{2}
+\end{aligned}\tag{4}</script><p>For this sample, if we only treat four individuals, the $ATE$ will not change because we know the outcomes before and after treatment.</p>
+<h3 id="ATU-amp-ATT-amp-SDO"><a href="#ATU-amp-ATT-amp-SDO" class="headerlink" title="ATU &amp; ATT &amp; SDO"></a>ATU &amp; ATT &amp; SDO</h3><ul>
+<li><strong>ATU</strong> is the shorthand of <strong>average treatment effect of the untreated</strong>.</li>
+</ul>
+<script type="math/tex; mode=display">
+ATU = E(Y_i^1-Y_i^0|X_i=0)</script><ul>
+<li><strong>ATT</strong> is the shorthand of <strong>average treatment effect of the treated</strong>.</li>
+</ul>
+<script type="math/tex; mode=display">
+ATT = E(Y_i^1-Y_i^0|X_i=1)</script><ul>
+<li><strong>SDO</strong> is the shorthand of <strong>simple difference in mean outcomes</strong>.</li>
+</ul>
+<script type="math/tex; mode=display">
+SDO = E(Y^1_i|X_i=1)-E(Y_i^0|X_i=0)</script><p>In the <a href="#sample">sample</a>, we can easily calculate,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+ATU&=\frac{3-1}{4}=\frac{1}{2}\\
+ATT&=\frac{3-1}{4}=\frac{1}{2}\\
+SDO&=\frac{3}{4}-\frac{1}{4}=\frac{1}{2}
+\end{aligned}</script><p>Since $SDO$ is <strong>not affected</strong> by counterfactual to be accurately computed, we wonder whether it can be used to estimate $ATE$. More importantly, we can do a simple transposition for ATE based on equation 3, (let $p=p(X_i=1)$)</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+ATE &= ATT*p+ATU*(1-p)\\
+&= ATT + (ATU-ATT)*(1-p)\\
+&= SDO + E(Y_i^0|X_i=0)-E(Y_i^0|X_i=1) +(1-p)(ATU-ATT)\\
+\Rightarrow SDO&= ATE + \underbrace{E(Y_i^0|X_i=1)-E(Y_i^0|X_i=0)}_{\text{Selection Bias}} + \underbrace{(1-p)(ATT-ATU)}_{\text{Heterogeneous Bias}} 
+\end{aligned}\tag{5}</script><p>So how the two terms influence the estimation?</p>
+<h3 id="Selection-Bias"><a href="#Selection-Bias" class="headerlink" title="Selection Bias"></a>Selection Bias</h3><p>If we intentionally assign our treatments to individual 1,3,5,7. The sample shows below,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">$Y_i^1$</th>
+<th style="text-align:center">$Y_i^0$</th>
+<th style="text-align:center">Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If we calculate $SDO$,</p>
+<script type="math/tex; mode=display">
+SDO = \frac{1+1+1+1}{4}-\frac{0+0+0+0}{4}=1</script><p>Simply regrading it as $ATE$, then a huge effect reflects if a treatment is implemented. However, the true $ATE$ is $\frac{1}{2}$. The selection bias is,</p>
+<script type="math/tex; mode=display">
+\text{Selection Bias}=\frac{0+0+1+1}{4}-\frac{0+0+0+0}{4}=\frac{1}{2}</script><p>What exactly contributes to the <strong>Selection Bias</strong>? The answer is $Y_i^0$. There is a probability that treated ones and untreated ones make different choices if no treatment assigned. Say, <strong>in order to ensure my estimated ATE is not distorted due to sampling bias, I must ensure treatment assignment strategy does not yield a significant difference in the potential outcome given no treatment</strong> ($\color{red}Y_i^0$) <strong>of treated and untreated individuals.</strong></p>
+<p>Confounders are generally the main cause of selection bias.</p>
+<h3 id="Heterogeneous-Treatment-Effect-Bias"><a href="#Heterogeneous-Treatment-Effect-Bias" class="headerlink" title="Heterogeneous Treatment Effect Bias"></a>Heterogeneous Treatment Effect Bias</h3><p>If there are two economists, the God surprisingly finds that the treatment has no effect on them, and gives the sample below,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">$Y_i^1$</th>
+<th style="text-align:center">$Y_i^0$</th>
+<th style="text-align:center">Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">4📈</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">8📈</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>, where individuals 4, 8 are economists. Calculating the $SDO$,</p>
+<script type="math/tex; mode=display">
+SDO = \frac{1+1+0+0}{4}-\frac{0+1+0+0}{4}=\frac{1}{4}</script><p>While with the selection bias is, </p>
+<script type="math/tex; mode=display">
+\text{Selection Bias}=\frac{1+0+0+0}{4}-\frac{0+1+0+0}{4}=0</script><p>The heterogeneous treatment effect bias is,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+HTE &= (1-\frac{1}{2})*(ATT-ATU)\\
+&= \frac{1}{2}*(\frac{1}{4}-\frac{3}{4})=-\frac{1}{4}
+\end{aligned}</script><p>What exactly causes <strong>Heterogeneous Treatment Effect</strong> (HTE)? The answer is $Y_i^1$. When there is no sampling bias, $Y_i^1$ is the main factor that influences $ATT$ and $ATU$ because the group of the treated and the untreated may not be the same. In this case, economists, who are not affected by the treatment, are all in the treated. <strong>In order to ensure my estimated ATE is not distorted due to sampling bias, I must ensure that my treatment assignment strategy does not yield a significant difference in the potential outcome given treatment</strong> ($\color{red}Y_i^1$) <strong>of treated and untreated individuals.</strong></p>
+<h3 id="Randomized-Controlled-Trials"><a href="#Randomized-Controlled-Trials" class="headerlink" title="Randomized Controlled Trials"></a>Randomized Controlled Trials</h3><p>How to eliminate those bias? Applying <strong>Randomized Controlled Trials</strong> is a good idea. Then, treatments are <strong>independent</strong> with potential outcomes $Y_i^1$ and $Y_i^0$. We will have,</p>
+<script type="math/tex; mode=display">
+E(Y_i^1|X_i=1)=E(Y_i^1|X_i=0)\\
+E(Y_i^0|X_i=1)=E(Y_i^0|X_i=0)</script><script type="math/tex; mode=display">
+\tau = ATE = E(Y_i^1-Y_i^0) = E(Y_i^1-Y_i^0|X_i=0/1) = ATT = ATU</script><h2 id="ATE-under-Confoundedness"><a href="#ATE-under-Confoundedness" class="headerlink" title="ATE under Confoundedness"></a>ATE under Confoundedness</h2><p>If there is observable confounding variables, how to estimate $ATE$? There are two criteria to figure out the $ATE$.</p>
+<h3 id="Back-door-Criterion"><a href="#Back-door-Criterion" class="headerlink" title="Back-door Criterion"></a>Back-door Criterion</h3><p><strong>Backdoor Criterion</strong> is simply controlling confounding variables <strong>constant </strong>(or nearly equal to the constant). By doing so, we will reach a magic place where treatment and outcome are <strong>independent</strong>. Remember the <a href="#confounding">Fig3</a>, the variable $Z$ is ‘invisible’ in this case. Of course, we call it as <strong>conditional independent</strong>. An efficient method is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matching_(statistics">matching</a>).</p>
+<p>As we do above, we estimate <strong>conditional ATE</strong> (CATE),</p>
+<script type="math/tex; mode=display">
+CATE = E(Y_i^1-Y_i^0|Z) \tag{6}</script><p>Then the $ATE$ is,</p>
+<script type="math/tex; mode=display">
+ATE = \sum CATE_{Z_i}p(Z_i)</script><p>If there are many confounding variables, controlling all confounding variables are difficult, which is known as <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>. Under this circumstance, we can apply <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Propensity_score_matching"><strong>propensity score matching</strong></a>, which compresses variables into one score and all we need to do is to control the score. </p>
+<h3 id="Front-door-Criterion"><a href="#Front-door-Criterion" class="headerlink" title="Front-door Criterion"></a>Front-door Criterion</h3><p>Another efficient way is <strong>Front-door Criterion</strong>. Based on <a href="#confounding">Fig3</a>, we add $M$ between $X$ and $Y$,</p>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/19/gjD7CETbHw41uNR.png' style='zoom:70%' alt='Fig4: Front-door Criteria'>
+</div>
+
+
+<p>$M$ is a mediator, then the causal effect $X\to Y$ is the combination of $X\to M$ and $M\to Y$. Here, we can easily control $X$ to control $M$. As a result, the influence of $Z$ is eliminated.</p>
+<script type="math/tex; mode=display">
+ATE_{X\to Y}= ATE_{X\to M}*ATE_{M\to Y}</script><p>Front-door criteria is a very useful way because I can even have no idea about $Z$!</p>
+<h2 id="Causal-Regression"><a href="#Causal-Regression" class="headerlink" title="Causal Regression"></a>Causal Regression</h2><p>Based on <strong>Potential Outcomes Model</strong>, we make a transposition on equation 2,</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+Y_i &= X_iY_i^1+(1-X_i)Y_i^0\\
+&= X_i(Y_i^1-Y^0_i)+Y^0_i
+\end{aligned}\tag{7}</script><p>It reminds a simple regression that contains a binary variable. And the coefficient is the $ATE$.</p>
+<h3 id="Assumptions"><a href="#Assumptions" class="headerlink" title="Assumptions"></a>Assumptions</h3><h4 id="Unconfoundedness"><a href="#Unconfoundedness" class="headerlink" title="Unconfoundedness"></a>Unconfoundedness</h4><script type="math/tex; mode=display">
+X_i ⫫ (Y_i(0),Y_i(1))|Z_i</script><p>This assumption tells that if there are unobserved variables, those variables are not confounders. This assumption aims at eliminating <strong>selection bias</strong>.</p>
+<h4 id="Overlap"><a href="#Overlap" class="headerlink" title="Overlap"></a>Overlap</h4><script type="math/tex; mode=display">
+\forall x \in \text{supp}(X), \quad 0<P(W=1|X=x)<1</script><p>It states that every point of the covariate space we can find both the treated and control individuals.</p>
+<h3 id="Disjunctive-Cause-Criterion"><a href="#Disjunctive-Cause-Criterion" class="headerlink" title="Disjunctive Cause Criterion"></a>Disjunctive Cause Criterion</h3><p><strong>Disjunctive Cause Criterion</strong> tells a methodology to select variables to control observed confounding variables. Actually, the criterion is to control variables that satisfy backdoor criterion if there are any. An example is,</p>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/21/NMgQ3LYdIwPoh4p.png' alt='Fig5: Disjunctive Example'>
+</div>
+
+
+<p> And based on the criterion, we should choose $V$ and $W$ because they satisfy the backdoor criterion for $X\to Y$ treatment.</p>
+<h3 id="Regression-for-Causal-Inference"><a href="#Regression-for-Causal-Inference" class="headerlink" title="Regression for Causal Inference"></a>Regression for Causal Inference</h3><p>Therefore, we can add some control variables into our model based on equation 7,</p>
+<script type="math/tex; mode=display">
+Y_i = Y^0_i+\tau X_i+\beta Z_i</script><p>And, </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E(y|do(x=a))=\int\mathbb{E}[y|x=a,z]p(z)dz\\
+\tau=\begin{cases}
+\frac{\mathrm{d\mathbb{E}[y|do(x)]}}{\mathrm{d}x}, \text{if continuous}\\
+\mathbb{E}[y|do(x=1)]-\mathbb{E}[y|do(x=0)], \text{if binary}
+\end{cases}
+\end{aligned}\tag{8}</script><h2 id="Simulation"><a href="#Simulation" class="headerlink" title="Simulation"></a>Simulation</h2><h3 id="Homogeneous-Treatment-Effect"><a href="#Homogeneous-Treatment-Effect" class="headerlink" title="Homogeneous Treatment Effect"></a>Homogeneous Treatment Effect</h3><h4 id="Simulation-1"><a href="#Simulation-1" class="headerlink" title="Simulation 1"></a>Simulation 1</h4><p>First, we simulate under <a href="#confounding">Fig3</a>, where an observed confounding variable affects treatment and result simultaneously. </p>
+<script type="math/tex; mode=display">
+x \leftarrow \mathcal{N}(3,4)\\
+\text{Treatment} \leftarrow \text{Bernoulli}(1-\exp(-x))\\
+y = 1+3*\text{Treatment}+0.2x+\mathcal{N}(0,0.25)</script><figure class="highlight python"><figcaption><span>Unfold to See the Code</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.e**(-x))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">treat</span>(<span class="params">x, p</span>):</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;p:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">327</span>)</span><br><span class="line">x = np.random.normal(<span class="number">3</span>, <span class="number">4</span>, <span class="number">1000</span>) <span class="comment"># confounder</span></span><br><span class="line">random = np.random.random(<span class="number">1000</span>)</span><br><span class="line">treatment = np.array([treat(random[t], sigmoid(x)[t]) <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x))]) <span class="comment"># Assign treatment</span></span><br><span class="line">treated = x[np.where(treatment==<span class="number">1</span>)] <span class="comment"># Treated</span></span><br><span class="line">untreated = np.array([i <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> treated]) <span class="comment"># Untreated</span></span><br><span class="line">mat = np.array([treatment,x]).T</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line">X = sm.add_constant(mat)</span><br><span class="line">betas = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">0.2</span>]</span><br><span class="line">y = np.dot(X, betas) + np.random.normal(<span class="number">0</span>, <span class="number">0.25</span>, <span class="built_in">len</span>(x))</span><br><span class="line">res = sm.OLS(y,X).fit()</span><br><span class="line">print(res.summary())</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line">fig = go.Figure()</span><br><span class="line">fig.add_trace(go.Scatter(x=x, y=y, marker_color=treatment, mode=<span class="string">&#x27;markers&#x27;</span>, name=<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=treated, y=treated*res.params[-<span class="number">1</span>]+res.params[<span class="number">0</span>]+res.params[<span class="number">1</span>], name=<span class="string">&#x27;Treated&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=untreated, y=untreated*res.params[-<span class="number">1</span>]+res.params[<span class="number">0</span>], name=<span class="string">&#x27;Untreated&#x27;</span>))</span><br><span class="line">annotations=[&#123;<span class="string">&#x27;text&#x27;</span>:<span class="string">&#x27;Treatment effect = 3.02&#x27;</span>, <span class="string">&#x27;x&#x27;</span>:<span class="number">10</span>, <span class="string">&#x27;y&#x27;</span>:<span class="number">4</span>,<span class="string">&#x27;showarrow&#x27;</span>:<span class="literal">False</span>,<span class="string">&#x27;textangle&#x27;</span>:-<span class="number">20</span>&#125;]</span><br><span class="line">fig.update_layout(template=<span class="string">&#x27;ggplot2&#x27;</span>, width=<span class="number">700</span>, height=<span class="number">500</span>, annotations=annotations)</span><br></pre></td></tr></table></figure>
+<p>The result is shown below,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Coefficient</th>
+<th style="text-align:center">P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Intercept</td>
+<td style="text-align:center">0.9849</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Treatment</td>
+<td style="text-align:center">3.0233</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">0.2001</td>
+<td style="text-align:center">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/22/2YR6chLHPortD9I.png' style='zoom:75%' alt='Fig:6 Simulation 1'>
+</div>
+
+
+<h3 id="Heterogeneous-Treatment-Effect"><a href="#Heterogeneous-Treatment-Effect" class="headerlink" title="Heterogeneous Treatment Effect"></a>Heterogeneous Treatment Effect</h3><h4 id="Simulation-2"><a href="#Simulation-2" class="headerlink" title="Simulation 2"></a>Simulation 2</h4><script type="math/tex; mode=display">
+x \leftarrow \mathcal{N}(3,4)\\
+\text{Treatment} \leftarrow \text{Bernoulli}(1-\exp(-x))\\
+y = 1+\alpha*\text{Treatment}+0.2x+\mathcal{N}(0,0.25), \alpha\sim\mathcal{N}(3,1)</script><figure class="highlight python"><figcaption><span>Unfold to See the Code</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.e**(-x))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">treat</span>(<span class="params">x, p</span>):</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;p:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">327</span>)</span><br><span class="line">x = np.random.normal(<span class="number">3</span>, <span class="number">4</span>, <span class="number">1000</span>) <span class="comment"># confounder</span></span><br><span class="line">random = np.random.random(<span class="number">1000</span>)</span><br><span class="line">treatment = np.array([treat(random[t], sigmoid(x)[t]) <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x))]) <span class="comment"># Assign treatment</span></span><br><span class="line">treated = x[np.where(treatment==<span class="number">1</span>)] <span class="comment"># Treated</span></span><br><span class="line">untreated = np.array([i <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> treated]) <span class="comment"># Untreated</span></span><br><span class="line">mat = np.array([treatment,x]).T</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line">X = sm.add_constant(mat)</span><br><span class="line">alpha = np.random.normal(<span class="number">3</span>,<span class="number">1</span>,<span class="number">1000</span>)</span><br><span class="line">y = <span class="number">0.2</span>*x + alpha*treatment + <span class="number">1</span> + np.random.normal(<span class="number">0</span>,<span class="number">0.25</span>,<span class="number">1000</span>)</span><br><span class="line">res = sm.OLS(y,X).fit()</span><br><span class="line">print(res.summary())</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line">fig = go.Figure()</span><br><span class="line">fig.add_trace(go.Scatter(x=x, y=y, marker_color=treatment, mode=<span class="string">&#x27;markers&#x27;</span>, name=<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=treated, y=treated*res.params[-<span class="number">1</span>]+res.params[<span class="number">0</span>]+res.params[<span class="number">1</span>], name=<span class="string">&#x27;Treated&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=untreated, y=untreated*res.params[-<span class="number">1</span>]+res.params[<span class="number">0</span>], name=<span class="string">&#x27;Untreated&#x27;</span>))</span><br><span class="line">annotations=[&#123;<span class="string">&#x27;text&#x27;</span>:<span class="string">&#x27;Treatment effect = 3.0125&#x27;</span>, <span class="string">&#x27;x&#x27;</span>:<span class="number">10</span>, <span class="string">&#x27;y&#x27;</span>:<span class="number">2</span>,<span class="string">&#x27;showarrow&#x27;</span>:<span class="literal">False</span>,<span class="string">&#x27;textangle&#x27;</span>:-<span class="number">18</span>&#125;]</span><br><span class="line">fig.update_layout(template=<span class="string">&#x27;ggplot2&#x27;</span>, width=<span class="number">700</span>, height=<span class="number">500</span>, annotations=annotations)</span><br></pre></td></tr></table></figure>
+<p>The result is,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Coefficient</th>
+<th style="text-align:center">P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Intercept</td>
+<td style="text-align:center">1.0116</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Treatment</td>
+<td style="text-align:center">3.0125</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">0.2020</td>
+<td style="text-align:center">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/22/jz86vlc1E3tedi7.png' style='zoom:75%' alt='Fig:7 Simulation 2'>
+</div>
+
+
+<p>Here, we can see that if heterogeneous treatment effect is independent with $x$, we can easily get $ATE$ from the mean of the distribution of the coefficient term ($\mathcal{N}(3,1)$), via equation 8, $\mathbb{E}(\alpha)=3$.</p>
+<h4 id="Simulation-3"><a href="#Simulation-3" class="headerlink" title="Simulation 3"></a>Simulation 3</h4><script type="math/tex; mode=display">
+x \leftarrow \mathcal{N}(3,4)\\
+\text{Treatment} \leftarrow \text{Bernoulli}(1-\exp(-x))\\
+y = 1+0.5*\text{Treatment}+0.2x+0.2x*\text{Treatment}+\mathcal{N}(0,0.25)</script><figure class="highlight python"><figcaption><span>Unfold to See the Code</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.e**(-x))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">treat</span>(<span class="params">x, p</span>):</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;p:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">327</span>)</span><br><span class="line">x = np.random.normal(<span class="number">3</span>, <span class="number">4</span>, <span class="number">1000</span>) <span class="comment"># confounder</span></span><br><span class="line">random = np.random.random(<span class="number">1000</span>)</span><br><span class="line">treatment = np.array([treat(random[t], sigmoid(x)[t]) <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x))]) <span class="comment"># Assign treatment</span></span><br><span class="line">treated = x[np.where(treatment==<span class="number">1</span>)] <span class="comment"># Treated</span></span><br><span class="line">untreated = np.array([i <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> treated]) <span class="comment"># Untreated</span></span><br><span class="line"></span><br><span class="line">xtreat = x*treatment</span><br><span class="line">x_treat = xtreat[np.where(treatment==<span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">mat = np.array([treatment,x,xtreat]).T</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line">X = sm.add_constant(mat)</span><br><span class="line">y = <span class="number">0.2</span>*x + <span class="number">0.2</span>*xtreat + <span class="number">0.5</span>*treatment + <span class="number">1</span> + np.random.normal(<span class="number">0</span>,<span class="number">0.25</span>,<span class="number">1000</span>)</span><br><span class="line">res = sm.OLS(y,X).fit()</span><br><span class="line">print(res.summary())</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go</span><br><span class="line">fig = go.Figure()</span><br><span class="line">fig.add_trace(go.Scatter(x=x, y=y, marker_color=treatment, mode=<span class="string">&#x27;markers&#x27;</span>, name=<span class="string">&#x27;&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=treated, y=treated*res.params[-<span class="number">2</span>]+res.params[<span class="number">0</span>]+res.params[<span class="number">1</span>]+x_treat*res.params[-<span class="number">1</span>], name=<span class="string">&#x27;Treated&#x27;</span>))</span><br><span class="line">fig.add_trace(go.Scatter(x=untreated, y=untreated*res.params[-<span class="number">2</span>]+res.params[<span class="number">0</span>], name=<span class="string">&#x27;Untreated&#x27;</span>, marker_color=<span class="string">&#x27;red&#x27;</span>))</span><br><span class="line">annotations=[&#123;<span class="string">&#x27;text&#x27;</span>:<span class="string">&#x27;Treatment effect = 3.0125&#x27;</span>, <span class="string">&#x27;x&#x27;</span>:<span class="number">10</span>, <span class="string">&#x27;y&#x27;</span>:<span class="number">5</span>,<span class="string">&#x27;showarrow&#x27;</span>:<span class="literal">False</span>,<span class="string">&#x27;textangle&#x27;</span>:<span class="number">0</span>&#125;]</span><br><span class="line">fig.update_layout(template=<span class="string">&#x27;ggplot2&#x27;</span>, width=<span class="number">700</span>, height=<span class="number">500</span>)</span><br></pre></td></tr></table></figure>
+<p>The result is,</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">Coefficient</th>
+<th style="text-align:center">P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Intercept</td>
+<td style="text-align:center">0.9813</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">Treatment</td>
+<td style="text-align:center">0.5251</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">0.1979</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">x*treatment</td>
+<td style="text-align:center">0.2025</td>
+<td style="text-align:center">0.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div align=center>
+    <img src='https://i.loli.net/2021/06/22/VmiPrCc14JqMH9R.png' style='zoom:75%' alt='Fig:7 Simulation 3'>
+</div>
+
+
+<p>By the equation 8, </p>
+<script type="math/tex; mode=display">
+\tau = ATE = \mathbb{E}(0.2x+0.5)=1.1</script><h3 id="OtherMethods"><a href="#OtherMethods" class="headerlink" title="OtherMethods"></a>OtherMethods</h3><h4 id="Inverse-propensity-score-weighting"><a href="#Inverse-propensity-score-weighting" class="headerlink" title="Inverse-propensity score weighting"></a>Inverse-propensity score weighting</h4><p>Rosenbaum and Rubin (1983) have shown that whenever unconfoundedness holds, it is sufficient to control for the <strong>propensity score</strong>. The propensity score serves a single-dimensional variable that summarizes how observables affect the treatment probability. Let,</p>
+<script type="math/tex; mode=display">
+e(z)=P(X_i=1|Z_i=z)\\
+\because \text{Unconfoundedness,}\quad Y_i \perp X_i|e(Z)</script><p>That is, a comparison of two people with the same propensity score, one of whom received the treatment and one who did not, should in principle adjust for confounding variables. Propensity score weighting (PSW) provides our starting point as a method to reduce the effects of confounding in observational studies. The basic idea is to weight the observations to obtain similar baseline characteristics. The following results can be shown to hold,</p>
+<script type="math/tex; mode=display">
+E(Y_i(1))=\mathbb{E}(\frac{Y_iX_i}{e(Z_i)}),\quad E(Y_i(0))=\mathbb{E}(\frac{Y_i(1-X_i)}{1-e(Z_i)})</script><p>Thus,</p>
+<script type="math/tex; mode=display">
+\tau =ATE = \mathbb{E}(\frac{Y_iX_i}{e(Z_i)}-\frac{Y_i(1-X_i)}{1-e(Z_i)})</script><h4 id="Weighted-OLS"><a href="#Weighted-OLS" class="headerlink" title="Weighted OLS"></a>Weighted OLS</h4><p>Using weights on OLS, </p>
+<script type="math/tex; mode=display">
+w = \frac{X}{e(Z)}+\frac{1-X}{1-e(Z)}</script><p>For observations, we apply weights to make the treated and the untreated as in the similar baseline characteristics.</p>
+<h4 id="Causal-Tree"><a href="#Causal-Tree" class="headerlink" title="Causal Tree"></a>Causal Tree</h4><p>Another important way to estimate <strong>heterogeneous treatment effect</strong> is the <strong>Causal Tree</strong>. It is an adjusted version of decision tree. Simply speaking, decision tree is efficient at capture <strong>nonlinear relationships</strong>. Thus, after classification, those ‘similar’ samples are in the same leaf. Say, we are using decision tree to <strong>control</strong> the confounders (satisfying the backdoor criterion). In each leaf, we will get the $CATE$ by equation 6.</p>
+<p>Causal Tree introduces a new splitting method and minimization criterion called <strong>Honest</strong>. Honest applies the thought of CV, and it creates $\mathcal{S}^{est}$ to avoid overfitting in training. </p>
+<ul>
+<li><strong>Honest Target</strong>,</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+    \text{MSE}_{\tau}(\mathcal{S}^{te}, \mathcal{S}^{est}, \Pi) &= \frac{1}{\#(\mathcal{S}^{te})}\sum_{i\in S^{te}}\{(\tau_i-\hat{\tau}(X_i;\mathcal{S}^{est},\Pi))^2 - \tau_i^2\}\\
+    EMSE_\tau(\Pi) &= \mathbb{E}_{\mathcal{S}^{te},\mathcal{S}^{est}} \text{MSE}_\tau
+    \end{align}</script><ul>
+<li><strong>Honest Split</strong>,</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{align}
+        EMSE_\tau = -\frac{1}{N^{tr}}\sum_{i\in\mathcal{S}^{tr}}\hat{\tau}^2(X_i;\mathcal{S}^{tr},\Pi)+(\frac{1}{N^{tr}}+\frac{1}{N^{est}})\sum_{\ell\in\Pi}(\frac{S^2_{treated}}{p}+\frac{S^2_{controlled}}{1-p})
+    \end{align}</script><p>,where $\mathcal{S}^{te}$ denotes the test set, $\Pi$ denotes the splits. This splitting method ensures the <strong>balance</strong> in leaves.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><h3 id="List-of-Works"><a href="#List-of-Works" class="headerlink" title="List of Works"></a>List of Works</h3><ul>
+<li>Jiaming Mao, <a target="_blank" rel="noopener" href="https://jiamingmao.github.io/data-analysis/Lectures/">Data Analysis - Causality Part (Part II)</a></li>
+<li><p>Ken Acquah, <a href="causalflows.com">Causal Flows</a></p>
+</li>
+<li><p>Susan Athey, <a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/10hj9yZ8tmO9VpkkwzUdliXntDFnsWpsZ">ATE Tutorial</a></p>
+</li>
+<li><p>Guido Imbens &amp; Susan Athey, Recursive partitioning for heterogeneous causal effects.</p>
+</li>
+</ul>
+<h3 id="Picture-Reference"><a href="#Picture-Reference" class="headerlink" title="Picture Reference"></a>Picture Reference</h3><p><a class="tag is-dark is-medium" href="https://www.pixiv.net/artworks/89805822" target="_blank"><br><span class="icon"><i class="fas fa-camera"></i></span>&nbsp;&nbsp; Pixiv by Alcxome </a></p>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/">微观计量</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/05/07/Report-Ridge-Lasso/"><span class="level-item">Ridge and Lasso Regression</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://i.loli.net/2021/04/01/s3S5IyEexAjClVm.png" alt="Chizuru7"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Chizuru7</p><p class="is-size-6 is-block">A Junior in XMU</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Earth, Solar System</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">1</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Chizuru7"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Mail" href="mailto:362296573@qq.com"><i class="fas fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Steam" href="https://s.team/p/cfhj-vnmw/QDPBQJDG"><i class="fab fa-steam"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Prerequisites"><span class="level-left"><span class="level-item">1</span><span class="level-item">Prerequisites</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Structural-Causal-Model"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Structural Causal Model</span></span></a></li><li><a class="level is-mobile" href="#Counterfactual"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">Counterfactual</span></span></a></li><li><a class="level is-mobile" href="#Potential-Outcomes-Model"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">Potential Outcomes Model</span></span></a></li><li><a class="level is-mobile" href="#Confounding-Variables"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">Confounding Variables</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Average-Treatment-Effect"><span class="level-left"><span class="level-item">2</span><span class="level-item">Average Treatment Effect</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#ATU-amp-ATT-amp-SDO"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">ATU &amp; ATT &amp; SDO</span></span></a></li><li><a class="level is-mobile" href="#Selection-Bias"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">Selection Bias</span></span></a></li><li><a class="level is-mobile" href="#Heterogeneous-Treatment-Effect-Bias"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">Heterogeneous Treatment Effect Bias</span></span></a></li><li><a class="level is-mobile" href="#Randomized-Controlled-Trials"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">Randomized Controlled Trials</span></span></a></li></ul></li><li><a class="level is-mobile" href="#ATE-under-Confoundedness"><span class="level-left"><span class="level-item">3</span><span class="level-item">ATE under Confoundedness</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Back-door-Criterion"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">Back-door Criterion</span></span></a></li><li><a class="level is-mobile" href="#Front-door-Criterion"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">Front-door Criterion</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Causal-Regression"><span class="level-left"><span class="level-item">4</span><span class="level-item">Causal Regression</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Assumptions"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">Assumptions</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Unconfoundedness"><span class="level-left"><span class="level-item">4.1.1</span><span class="level-item">Unconfoundedness</span></span></a></li><li><a class="level is-mobile" href="#Overlap"><span class="level-left"><span class="level-item">4.1.2</span><span class="level-item">Overlap</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Disjunctive-Cause-Criterion"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">Disjunctive Cause Criterion</span></span></a></li><li><a class="level is-mobile" href="#Regression-for-Causal-Inference"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">Regression for Causal Inference</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Simulation"><span class="level-left"><span class="level-item">5</span><span class="level-item">Simulation</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Homogeneous-Treatment-Effect"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">Homogeneous Treatment Effect</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Simulation-1"><span class="level-left"><span class="level-item">5.1.1</span><span class="level-item">Simulation 1</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Heterogeneous-Treatment-Effect"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">Heterogeneous Treatment Effect</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Simulation-2"><span class="level-left"><span class="level-item">5.2.1</span><span class="level-item">Simulation 2</span></span></a></li><li><a class="level is-mobile" href="#Simulation-3"><span class="level-left"><span class="level-item">5.2.2</span><span class="level-item">Simulation 3</span></span></a></li></ul></li><li><a class="level is-mobile" href="#OtherMethods"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">OtherMethods</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Inverse-propensity-score-weighting"><span class="level-left"><span class="level-item">5.3.1</span><span class="level-item">Inverse-propensity score weighting</span></span></a></li><li><a class="level is-mobile" href="#Weighted-OLS"><span class="level-left"><span class="level-item">5.3.2</span><span class="level-item">Weighted OLS</span></span></a></li><li><a class="level is-mobile" href="#Causal-Tree"><span class="level-left"><span class="level-item">5.3.3</span><span class="level-item">Causal Tree</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#References"><span class="level-left"><span class="level-item">6</span><span class="level-item">References</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#List-of-Works"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">List of Works</span></span></a></li><li><a class="level is-mobile" href="#Picture-Reference"><span class="level-left"><span class="level-item">6.2</span><span class="level-item">Picture Reference</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2021/06/18/Casual-Regression/"><img src="/gallery/causal_effect.png" alt="Casual Effect Estimation"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-06-18T08:21:05.000Z">2021-06-18</time></p><p class="title"><a href="/2021/06/18/Casual-Regression/">Casual Effect Estimation</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/05/07/Report-Ridge-Lasso/"><img src="/gallery/Chenswire.png" alt="Ridge and Lasso Regression"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-05-07T11:06:03.000Z">2021-05-07</time></p><p class="title"><a href="/2021/05/07/Report-Ridge-Lasso/">Ridge and Lasso Regression</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/05/04/Challenge-Ordered-Logit/"><img src="/gallery/Ordered_Logit.png" alt="Challenge: Ordered Logit"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-05-04T06:56:34.000Z">2021-05-04</time></p><p class="title"><a href="/2021/05/04/Challenge-Ordered-Logit/">Challenge: Ordered Logit</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/31/Report-Regression-Spline/"><img src="/gallery/amiya_Splines.png" alt="Report - Regression Splines"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-31T09:38:41.000Z">2021-03-31</time></p><p class="title"><a href="/2021/03/31/Report-Regression-Spline/">Report - Regression Splines</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2021/03/29/VC%20Dimension/"><img src="/gallery/VCcover.jpg" alt="Report - VC Dimension"></a></figure><div class="media-content"><p class="date"><time dateTime="2021-03-28T16:00:00.000Z">2021-03-29</time></p><p class="title"><a href="/2021/03/29/VC%20Dimension/">Report - VC Dimension</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">三月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E8%A7%82%E8%AE%A1%E9%87%8F/"><span class="tag">微观计量</span><span class="tag">6</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://i.loli.net/2021/04/03/wDoVkMUd9LFYgqA.png" alt="Chizuru7&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 Junwei Lin</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
